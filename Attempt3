@@ -1,0 +1,74 @@
+
+#include <Servo.h>
+#define MOTOR_LEFT  251
+#define MOTOR_RIGHT 252
+#define ARM         253
+
+Servo motorLeftFront;
+Servo motorRightFront;
+Servo motorLeftBack;
+Servo motorRightBack;
+Servo motorPingPongBall;
+
+void setup()
+{
+  motorLeftFront.attach(12);
+  motorRightFront.attach(9);
+  motorLeftBack.attach(13);
+  motorRightBack.attach(11);
+  motorPingPongBall.attach(8);
+  Serial.begin(9600);  //Initialize serial connection to 9600 baud rate
+}
+
+void loop() {
+    while (1) { 
+      char keyboardIn = Serial.read();  //Get character from keyboard
+      
+      switch(keyboardIn) {
+        case 'w':
+          motorLeftFront.write(180);
+          motorRightFront.write(0);
+          motorLeftBack.write(180);
+          motorRightBack.write(0);
+          Serial.println("w pressed");
+          delay(40);  //Helps with moving
+          break;
+        case 'a':
+          motorLeftFront.write(0);
+          motorRightFront.write(0);
+          motorLeftBack.write(0);
+          motorRightBack.write(0);
+          Serial.println("a pressed");
+          delay(40);  //Helps with moving          
+          break;
+        case 'd':
+          motorLeftFront.write(1800);
+          motorRightFront.write(180);
+          motorLeftBack.write(180);
+          motorRightBack.write(180);
+          Serial.println("d pressed");
+          delay(40);  //Helps with moving
+          break;
+        case 's':
+          motorLeftFront.write(0);
+          motorRightFront.write(180);
+          motorLeftBack.write(0);
+          motorRightBack.write(180);
+          Serial.println("s pressed");
+          delay(40);  //Helps with moving
+          break;
+        case ' ':
+          motorPingPongBall.write(140); 
+          Serial.println("q pressed");
+          delay(40);  //Helps with moving
+          break;       
+        default:
+          motorLeftBack.write(93);
+          motorLeftFront.write(96);
+          motorRightFront.write(82);
+          motorRightBack.write(86.5);
+          motorPingPongBall.write(118);
+      }  
+      delay(1);   // Without this you'll exhaust your serial buffer and the servo won't spin for very long.
+    }
+}    
