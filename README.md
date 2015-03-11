@@ -16,7 +16,7 @@ void setup()
 #define MOTOR_RIGHT 252
 #define ARM         253
  
-while(true); {
+while(1) {
     int opcode;
     // Try to get an opcode. Keep trying until we actually see an opcode.
     do {
